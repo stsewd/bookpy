@@ -3,7 +3,9 @@ from subprocess import call
 
 from isbntools.app import get_isbnlike
 from isbntools.app import get_canonical_isbn
+from isbntools.app import meta
 
+from .book import Book
 from .errors import ISBNNotFoundError
 
 
@@ -38,3 +40,14 @@ def get_isbn_from_pdf(pdf_file, first_page=1, last_page=5):
             return isbn
     else:
         raise ISBNNotFoundError(pdf_file)
+
+
+def get_book(isbn):
+    book_info = meta(isbn)
+    book = Book(
+        isbn=book_info.get('ISBN-13', ""),
+        title=book_info.get('Title', ""),
+        authors=book_info.get('Authors', ""),
+        year=book_info.get('Year', "")
+    )
+    return book
