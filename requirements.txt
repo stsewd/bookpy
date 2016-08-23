@@ -1,0 +1,2 @@
+isbnlib==3.6.1
+isbntools==4.3.1
