@@ -26,15 +26,15 @@ def _get_text_from_file(file_name):
         return file.read()
 
 
-def _get_text_from_pdf(pdf_file, first_page, last_page):
+def _get_text_from_pdf(pdf_file, first_page=1, last_page=6):
     with tempfile.NamedTemporaryFile() as temp_file:
         output = temp_file.name
         _pdf_to_text_tool(pdf_file, output, first_page, last_page)
         return _get_text_from_file(output)
 
 
-def get_isbn_from_pdf(pdf_file, first_page=1, last_page=6):
-    pdf_text = _get_text_from_pdf(pdf_file, first_page, last_page)
+def get_isbn_from_pdf(pdf_file):
+    pdf_text = _get_text_from_pdf(pdf_file)
     for isbn_like in get_isbnlike(pdf_text, level='normal'):
         isbn = get_canonical_isbn(isbn_like)
         if isbn:
