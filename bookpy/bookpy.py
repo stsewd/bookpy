@@ -7,16 +7,18 @@ from .book import Book
 from . import pdfhandler
 
 
+HANDLERS = {
+    'application/pdf': pdfhandler.handler
+}
+
+
 class BookpyError(Exception):
     pass
 
 
 def _get_handler(file_type):
-    supported_types = {
-        'application/pdf': pdfhandler.handler
-    }
     try:
-        handler = supported_types[file_type]
+        handler = HANDLERS[file_type]
         return handler
     except KeyError:
         raise BookpyError("File type not supported: {}".format(file_type))
@@ -62,12 +64,11 @@ def _rename_file(file_path, pattern, **kwargs):
 
 
 def rename_files(files_list, pattern=None, **kwargs):
-    if not pattern:
+    if not pattern:  # Load defaulf pattern
         pattern = "{short_title}{main_author}{year}"
         kwargs = {
             'year': " ({year})",
             'main_author': " - {name}",
         }
-    # TODO: threading
     for file_path in files_list:
         _rename_file(file_path, pattern, **kwargs)
