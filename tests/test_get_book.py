@@ -11,18 +11,8 @@ MIN_EDIT_DISTANCE = 80
 
 class TestGetBook(unittest.TestCase):
 
-    def test_get_book_clean_code(self):
-        expected_book = self._get_default_book('clean_code')
-        actual_book = get_book(expected_book.isbn())
-        self.assertAlmostEqualBooks(actual_book, expected_book)
-
-    def test_get_book_soft_skills(self):
-        expected_book = self._get_default_book('soft_skills')
-        actual_book = get_book(expected_book.isbn())
-        self.assertAlmostEqualBooks(actual_book, expected_book)
-
-    def test_get_book_introduction_to_algorithms(self):
-        expected_book = self._get_default_book('introduction2algorithms')
+    def test_gnu_make(self):
+        expected_book = self._get_default_book('gnu_make')
         actual_book = get_book(expected_book.isbn())
         self.assertAlmostEqualBooks(actual_book, expected_book)
 
@@ -35,9 +25,10 @@ class TestGetBook(unittest.TestCase):
 
     def assertSimilarStrings(self, first, second):
         if not first or not second:  # It's ok a empty string
-            return
-        edit_dist = fuzz.partial_ratio(self._cleanstr(first), self._cleanstr(second))
-        self.assertGreaterEqual(edit_dist, MIN_EDIT_DISTANCE)
+            self.assertTrue(True)
+        else:
+            edit_dist = fuzz.partial_ratio(self._cleanstr(first), self._cleanstr(second))
+            self.assertGreaterEqual(edit_dist, MIN_EDIT_DISTANCE)
 
     @staticmethod
     def _cleanstr(s):
@@ -45,31 +36,18 @@ class TestGetBook(unittest.TestCase):
 
     def assertYear(self, first, second):
         if not first or not second:  # It's ok a empty string
-            return
-        self.assertEqual(first, second)
+            self.assertTrue(True)
+        else:
+            self.assertEqual(first, second)
 
     @staticmethod
     def _get_default_book(title):
         books = {
-            'clean_code': Book(
-                isbn="9780132350884",
-                title="Clean Code: A hanbook of agile software craftsmanship",
-                authors=["Robert C. Martin"],
-                year="2009"
+            'gnu_make': Book(
+                isbn="9780596552541",
+                title="Managing Projects with GNU Make : the Power of GNU Make for Building Anything",
+                authors=["Robert Mecklenburg"],
+                year="2004"
             ),
-
-            'soft_skills': Book(
-                isbn="9781617292392",
-                title="Soft Skills : The software developer's life manual",
-                authors=["John Z. Sonmez"],
-                year="2014"
-            ),
-
-            'introduction2algorithms': Book(
-                isbn="9780262033848",
-                title="Introduction to algorithms",
-                authors=["Thomas H. Cormen"],
-                year="2009"
-            )
         }
         return books[title]
