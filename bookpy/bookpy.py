@@ -52,23 +52,23 @@ def _get_file_extension(file_path):
     return os.path.splitext(file_path)[1]
 
 
-def _rename_file(file_path, pattern, **kwargs):
+def _rename_file(file_path, template, **kwargs):
     isbn = get_isbn_from_file(file_path)
     book = get_book(isbn)
     new_file_name = "{book_name}{extension}".format(
-        book_name=book.name(pattern, **kwargs),
+        book_name=book.name(template, **kwargs),
         extension=_get_file_extension(file_path)
     )
     new_name = _get_new_path(file_path, new_file_name)
     os.rename(file_path, new_name)
 
 
-def rename_files(files_list, pattern=None, **kwargs):
-    if not pattern:  # Load defaulf pattern
-        pattern = "{short_title}{main_author}{year}"
+def rename_files(files_list, template=None, **kwargs):
+    if not template:  # Load defaulf template
+        template = "{short_title}{main_author}{year}"
         kwargs = {
             'year': " ({year})",
             'main_author': " - {name}",
         }
     for file_path in files_list:
-        _rename_file(file_path, pattern, **kwargs)
+        _rename_file(file_path, template, **kwargs)

@@ -6,53 +6,53 @@ class Book():
         self._isbn = isbn
         self._year = year
 
-    def authors(self, pattern="{name}", sep=", ", empty=True):
+    def authors(self, template="{name}", sep=", ", empty=True):
         if not self._authors and empty:
             return ""
         return sep.join(
-            pattern.format(**author)
+            template.format(**author)
             for author in self._authors
         )
 
-    def main_author(self, pattern="{name}", empty=True):
+    def main_author(self, template="{name}", empty=True):
         if not self._get_main_author and empty:
             return ""
-        return pattern.format(**self._get_main_author())
+        return template.format(**self._get_main_author())
 
     def _get_main_author(self):
         return self._authors[0] if self._authors else Book._get_author("")
 
-    def title(self, pattern="{title}", empty=True):
+    def title(self, template="{title}", empty=True):
         if not self._title and empty:
             return ""
-        return pattern.format(
+        return template.format(
             title=self._title
         )
 
-    def short_title(self, pattern="{short_title}", empty=True):
+    def short_title(self, template="{short_title}", empty=True):
         if not self._short_title and empty:
             return ""
-        return pattern.format(
+        return template.format(
             short_title=self._short_title
         )
 
-    def year(self, pattern="{year}", empty=True):
+    def year(self, template="{year}", empty=True):
         if not self._year and empty:
             return ""
-        return pattern.format(
+        return template.format(
             year=self._year
         )
 
-    def isbn(self, pattern="{isbn}", empty=True):
+    def isbn(self, template="{isbn}", empty=True):
         if not self._isbn and empty:
             return ""
-        return pattern.format(
+        return template.format(
             isbn=self._isbn
         )
 
-    def name(self, pattern, **kwargs):
+    def name(self, template, **kwargs):
         kwargs = self._parse_args(kwargs)
-        return pattern.format(**kwargs)
+        return template.format(**kwargs)
 
     def _parse_args(self, k):
         title_f = k.get('title', "{title}")
