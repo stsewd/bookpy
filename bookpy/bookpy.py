@@ -16,7 +16,8 @@ def _pdf_to_text_tool(pdf_file, output, first_page, last_page):
         pdf_file,
         '-f', first_page,
         '-l', last_page,
-        output
+        '-q',  # Don't print any messages or errors
+        output,
     ])
 
 
