@@ -61,7 +61,13 @@ def _rename_file(file_path, pattern, **kwargs):
     os.rename(file_path, new_name)
 
 
-def rename_files(files_list, pattern="{short_title} - {main_author} ({year})", **kwargs):
-    # TODO:30 threading
+def rename_files(files_list, pattern=None, **kwargs):
+    if not pattern:
+        pattern = "{short_title}{main_author}{year}"
+        kwargs = {
+            'year': " ({year})",
+            'main_author': " - {name}",
+        }
+    # TODO: threading
     for file_path in files_list:
         _rename_file(file_path, pattern, **kwargs)
