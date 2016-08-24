@@ -33,9 +33,9 @@ def _get_text_from_pdf(pdf_file, first_page, last_page):
         return _get_text_from_file(output)
 
 
-def get_isbn_from_pdf(pdf_file, first_page=1, last_page=5):
+def get_isbn_from_pdf(pdf_file, first_page=1, last_page=6):
     pdf_text = _get_text_from_pdf(pdf_file, first_page, last_page)
-    for isbn_like in get_isbnlike(pdf_text, level='strict'):
+    for isbn_like in get_isbnlike(pdf_text, level='normal'):
         isbn = get_canonical_isbn(isbn_like)
         if isbn:
             return isbn
