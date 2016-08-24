@@ -1,4 +1,6 @@
+import os
 import tempfile
+import mimetypes
 from subprocess import call
 
 from isbntools.app import get_isbnlike
@@ -7,6 +9,10 @@ from isbntools.app import meta
 
 from .book import Book
 from .errors import ISBNNotFoundError
+
+
+class BookpyError(Exception):
+    pass
 
 
 def _pdf_to_text_tool(pdf_file, output, first_page, last_page):
@@ -52,3 +58,40 @@ def get_book(isbn):
         year=book_info.get('Year', "")
     )
     return book
+
+
+def pdf_handler(file_path):
+    isbn = get_isbn_from_pdf(file_path)
+    return get_book(isbn)
+
+
+def _get_type_handler(file_type):
+    supported_types = {
+        'application/pdf': pdf_handler
+    }
+    try:
+        handler = supported_types[file_type]
+        return handler
+    except KeyError:
+        raise BookpyError("File type not supported: " + file_type)
+
+
+def _get_new_name(old_file_path, new_file_name):
+    path = os.path.dirname(old_file_path)
+    new_file_path = os.path.join(path, new_file_name)
+    return new_file_path
+
+
+def rename_file(file_path, pattern, **kwargs):
+    file_type = mimetypes.guess_type(file_path)[0]
+    handler = _get_type_handler(file_type)
+    book = handler(file_path)
+    book_name = book.name(pattern, **kwargs)
+    new_name = _get_new_name(file_path, book_name)
+    os.rename(file_path, new_name)
+
+
+def rename_files(files_list, pattern="{short_title} - {main_author} ({year})", **kwargs):
+    # TODO threading
+    for file_path in files_list:
+        rename_file(file_path, pattern, **kwargs)
