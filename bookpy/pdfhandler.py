@@ -1,9 +1,10 @@
 import tempfile
 from subprocess import call
 
-from . import utils
 from isbntools.app import get_isbnlike
 from isbntools.app import get_canonical_isbn
+
+from . import utils
 from .errors import ISBNNotFoundError
 
 
