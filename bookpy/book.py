@@ -50,6 +50,9 @@ class Book():
             isbn=self._isbn
         )
 
+    def name(self, pattern, **kwargs):
+        return str(self)  # TODO Add global separator for blank spaces
+
     @staticmethod
     def _get_authors(authors):
         authors = [Book._get_author(author_name) for author_name in authors]
