@@ -22,8 +22,7 @@ def _get_handler(file_type):
         raise BookpyError("File type not supported: " + file_type)
 
 
-def _get_new_name(old_file_path, new_file_name):
-    # TODO:0 Missing the extension file!
+def _get_new_path(old_file_path, new_file_name):
     path = os.path.dirname(old_file_path)
     new_file_path = os.path.join(path, new_file_name)
     return new_file_path
@@ -47,11 +46,18 @@ def get_book(isbn):
     return book
 
 
+def _get_file_extension(file_path):
+    return os.path.splitext(file_path)[1]
+
+
 def _rename_file(file_path, pattern, **kwargs):
     isbn = get_isbn_from_file(file_path)
     book = get_book(isbn)
-    book_name = book.name(pattern, **kwargs)
-    new_name = _get_new_name(file_path, book_name)
+    new_file_name = "{book_name}{extension}".format(
+        book_name=book.name(pattern, **kwargs),
+        extension=_get_file_extension(file_path)
+    )
+    new_name = _get_new_path(file_path, new_file_name)
     os.rename(file_path, new_name)
 
 
