@@ -92,8 +92,8 @@ class Book():
         return title.split(':')[0]
 
     def __str__(self):
-        return "{title} - {main_author} {year}".format(
+        return "{title}{main_author}{year}".format(
             title=self.title(),
-            main_author=self.main_author(empty=True),
-            year=self.year("({year})", True)
+            main_author=self.main_author(" - {name}"),
+            year=self.year(" ({year})")
         )
