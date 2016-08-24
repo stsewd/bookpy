@@ -6,7 +6,7 @@ class Book():
         self._isbn = isbn
         self._year = year
 
-    def authors(self, pattern="{name}", sep=", ", empty=False):
+    def authors(self, pattern="{name}", sep=", ", empty=True):
         if not self._authors and empty:
             return ""
         return sep.join(
@@ -14,7 +14,7 @@ class Book():
             for author in self._authors
         )
 
-    def main_author(self, pattern="{name}", empty=False):
+    def main_author(self, pattern="{name}", empty=True):
         if not self._get_main_author and empty:
             return ""
         return pattern.format(**self._get_main_author())
@@ -22,28 +22,28 @@ class Book():
     def _get_main_author(self):
         return self._authors[0] if self._authors else Book._get_author("")
 
-    def title(self, pattern="{title}", empty=False):
+    def title(self, pattern="{title}", empty=True):
         if not self._title and empty:
             return ""
         return pattern.format(
             title=self._title
         )
 
-    def short_title(self, pattern="{short_title}", empty=False):
+    def short_title(self, pattern="{short_title}", empty=True):
         if not self._short_title and empty:
             return ""
         return pattern.format(
             short_title=self._short_title
         )
 
-    def year(self, pattern="{year}", empty=False):
+    def year(self, pattern="{year}", empty=True):
         if not self._year and empty:
             return ""
         return pattern.format(
             year=self._year
         )
 
-    def isbn(self, pattern="{isbn}", empty=False):
+    def isbn(self, pattern="{isbn}", empty=True):
         if not self._isbn and empty:
             return ""
         return pattern.format(
@@ -51,7 +51,26 @@ class Book():
         )
 
     def name(self, pattern, **kwargs):
-        return str(self)  # TODO Add global separator for blank spaces
+        kwargs = self._parse_args(kwargs)
+        return pattern.format(**kwargs)
+
+    def _parse_args(self, k):
+        title_f = k.get('title', "{title}")
+        short_title_f = k.get('short_title', "{short_title}")
+        main_author_f = k.get('main_author', "{name}")
+        authors_f = k.get('authors', "{name}")
+        sep_authors = k.get('sep_authors', ", ")
+        isbn_f = k.get('isbn', "{isbn}")
+        year_f = k.get('year', "{year}")
+
+        return {
+            'title': self.title(title_f),
+            'short_title': self.short_title(short_title_f),
+            'main_author': self.main_author(main_author_f),
+            'authors': self.authors(authors_f, sep=sep_authors),
+            'isbn': self.isbn(isbn_f),
+            'year': self.year(year_f),
+        }
 
     @staticmethod
     def _get_authors(authors):
