@@ -19,7 +19,7 @@ def _get_handler(file_type):
         handler = supported_types[file_type]
         return handler
     except KeyError:
-        raise BookpyError("File type not supported: " + file_type)
+        raise BookpyError("File type not supported: {}".format(file_type))
 
 
 def _get_new_path(old_file_path, new_file_name):
