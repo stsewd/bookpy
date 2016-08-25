@@ -18,5 +18,5 @@ class TestGetISBNFromPDF(unittest.TestCase):
 
     def test_no_pdf(self):
         file_ = "test_resources/no_pdf.png"
-        with self.assertRaises(Exception):
+        with self.assertRaises(ISBNNotFoundError):
             get_isbn_from_pdf(file_)
