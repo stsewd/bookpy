@@ -24,21 +24,21 @@ class TestGetBook(unittest.TestCase):
         self.assertYear(first.year(), second.year())
 
     def assertSimilarStrings(self, first, second):
-        if not first or not second:  # It's ok a empty string
-            self.assertTrue(True)
-        else:
+        if first and second:
             edit_dist = fuzz.partial_ratio(self._cleanstr(first), self._cleanstr(second))
             self.assertGreaterEqual(edit_dist, MIN_EDIT_DISTANCE)
+        else:
+            self.assertTrue(True)
 
     @staticmethod
     def _cleanstr(s):
         return s.lower().strip()
 
     def assertYear(self, first, second):
-        if not first or not second:  # It's ok a empty string
-            self.assertTrue(True)
-        else:
+        if first and second:
             self.assertEqual(first, second)
+        else:
+            self.assertTrue(True)
 
     @staticmethod
     def _get_default_book(title):
