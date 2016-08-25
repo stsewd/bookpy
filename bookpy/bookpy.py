@@ -52,8 +52,9 @@ def _get_file_extension(file_path):
     return os.path.splitext(file_path)[1]
 
 
-def rename_file(file_path, isbn_, template, **kwargs):
-    file_path = os.path.abspath(file_path)
+def rename_file(file_path, isbn_, template=None, **kwargs):
+    """ Renames a file based on a specific ISBN.
+    """
     book = get_book(isbn_)
     new_file_name = "{book_name}{extension}".format(
         book_name=book.name(template, **kwargs),
@@ -65,12 +66,9 @@ def rename_file(file_path, isbn_, template, **kwargs):
 
 
 def rename_files(files_list, template=None, **kwargs):
-    if not template:  # Load defaulf template
-        template = "{short_title}{main_author}{year}"
-        kwargs = {
-            'year': " ({year})",
-            'main_author': " - {name}",
-        }
+    """ Renames each file based on its ISBN.
+    """
     for file_path in files_list:
+        file_path = os.path.abspath(file_path)
         isbn = get_isbn_from_file(file_path)
         rename_file(file_path, isbn, template, **kwargs)

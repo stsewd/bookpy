@@ -50,7 +50,13 @@ class Book():
             isbn=self._isbn
         )
 
-    def name(self, template, **kwargs):
+    def name(self, template=None, **kwargs):
+        if not template:  # Load defaulf template
+            template = "{short_title}{main_author}{year}"
+            kwargs = {
+                'year': " ({year})",
+                'main_author': " - {name}",
+            }
         kwargs = self._parse_args(kwargs)
         return template.format(**kwargs)
 
