@@ -3,7 +3,7 @@ import os
 import click
 
 from .version import __version__
-from bookpy import rename_files
+from .bookpy import rename_files
 
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
