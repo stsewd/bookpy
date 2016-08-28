@@ -83,3 +83,4 @@ books/
 - Full template support (templates for each element (autors, title, etc.)).
 - Specify text case.
 - Support for epub files.
+- Intensive search.
