@@ -13,9 +13,9 @@ setup(
     include_package_data=True,
     author='Santos Gallegos',
     install_requires=[
-        'isbnlib',
-        'isbntools',
-        'click',
+        'isbnlib>=3.6.1',
+        'isbntools>=4.3.1',
+        'click>=6.6',
     ],
     author_email='santos_g@outlook.com',
     entry_points={
