@@ -8,8 +8,13 @@ TEST_RESOURCES = tests_resources
 
 TEST_RESOURCES_BACK = tests_resources_back
 
-all:
-	echo "Nothing yet"
+PIP = pip3
+
+install-develop-mode:
+	${PIP} install -e .
+
+install:
+	${PIP} install .
 
 test: backup-test-resources recover-test-resources
 	${PYTHON} -m ${TEST_MODULE} ${TEST_FLAGS}
