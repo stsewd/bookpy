@@ -31,6 +31,9 @@ def get_files(directory, recursive=False):
 )
 def bookpy(**kwargs):
     """ Renames your e-books for better organization.
+
+    SRCS are the books sources (individual files or a directory).
+    If any source is given, the current directory will be taken.
     """
     recursive = kwargs['recursive']
     srcs = kwargs['srcs']
