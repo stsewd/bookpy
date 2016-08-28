@@ -52,10 +52,10 @@ def _get_file_extension(file_path):
     return os.path.splitext(file_path)[1]
 
 
-def rename_file(file_path, isbn_, template=None, **kwargs):
+def rename_file(file_path, isbn, template=None, **kwargs):
     """ Renames a file based on a specific ISBN.
     """
-    book = get_book(isbn_)
+    book = get_book(isbn)
     new_file_name = "{book_name}{extension}".format(
         book_name=book.name(template, **kwargs),
         extension=_get_file_extension(file_path)
