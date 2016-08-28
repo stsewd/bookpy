@@ -19,7 +19,7 @@ For now only pdf files.
 bookpy [OPTIONS] [SRCS]...
 
 SRCS are the books sources (individual files or a directory).
-If any source is given, the current directory will be taken.
+If no source is given, the current directory will be taken.
 
 Options:
   --version            Show the version and exit.
