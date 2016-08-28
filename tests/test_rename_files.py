@@ -1,7 +1,7 @@
 from os import path
 import unittest
 
-from bookpy import rename_files
+from bookpy.bookpy import rename_files
 
 
 class TestRenameFiles(unittest.TestCase):

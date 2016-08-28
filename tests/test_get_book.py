@@ -2,8 +2,8 @@ import unittest
 
 from fuzzywuzzy import fuzz
 
-from bookpy import get_book
-from bookpy import Book
+from bookpy.bookpy import get_book
+from bookpy.bookpy import Book
 
 
 MIN_EDIT_DISTANCE = 80

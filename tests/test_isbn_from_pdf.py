@@ -1,7 +1,7 @@
 import unittest
 
-from bookpy import get_isbn_from_pdf
-from bookpy import ISBNNotFoundError
+from bookpy.pdfhandler import get_isbn_from_pdf
+from bookpy.errors import ISBNNotFoundError
 
 
 class TestGetISBNFromPDF(unittest.TestCase):
