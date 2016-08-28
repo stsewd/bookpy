@@ -39,13 +39,16 @@ def get_isbn_from_file(file_path):
 
 def get_book(isbn):
     book_info = meta(isbn)
-    book = Book(
-        isbn=book_info.get('ISBN-13', ""),
-        title=book_info.get('Title', ""),
-        authors=book_info.get('Authors', ""),
-        year=book_info.get('Year', "")
-    )
-    return book
+    if book_info:
+        book = Book(
+            isbn=book_info.get('ISBN-13', ""),
+            title=book_info.get('Title', ""),
+            authors=book_info.get('Authors', ""),
+            year=book_info.get('Year', "")
+        )
+        return book
+    else:
+        raise BookpyError("Could not retrieve information about the isbn. Check your Internet connection.")
 
 
 def _get_file_extension(file_path):
@@ -69,6 +72,9 @@ def rename_files(files_list, template=None, **kwargs):
     """ Renames each file based on its ISBN.
     """
     for file_path in files_list:
-        file_path = os.path.abspath(file_path)
-        isbn = get_isbn_from_file(file_path)
-        rename_file(file_path, isbn, template, **kwargs)
+        try:
+            file_path = os.path.abspath(file_path)
+            isbn = get_isbn_from_file(file_path)
+            rename_file(file_path, isbn, template, **kwargs)
+        except Exception as e:
+            print("{}. File: {}".format(str(e), file_path))
