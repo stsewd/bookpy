@@ -63,13 +63,18 @@ books/
 ```
 
 # Installation
+
+## Using pip
+`pip3 install bookpy`
+
+## Manual Installation
 `git clone https://github.com/stsewd/bookpy`
 
 `cd bookpy`
 
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 
-`pip install .`
+`pip3 install .`
 
 # Coming Soon
 - Rename a file given a specific ISBN.
