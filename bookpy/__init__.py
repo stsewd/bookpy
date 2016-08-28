@@ -1,3 +1,5 @@
+from .version import __version__
+
 from .book import Book
 
 from .bookpy import get_book
