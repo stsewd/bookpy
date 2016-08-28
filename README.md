@@ -78,6 +78,7 @@ books/
 
 # Coming Soon
 - Rename a file given a specific ISBN.
+- Threads.
 - Specify_a_separator_between_words.
 - Full template support (templates for each element (autors, title, etc.)).
 - Specify text case.
