@@ -4,9 +4,9 @@ TEST_FLAGS = discover -v
 
 TEST_MODULE = unittest
 
-TEST_RESOURCES = test_resources
+TEST_RESOURCES = tests_resources
 
-TEST_RESOURCES_BACK = test_resources_back
+TEST_RESOURCES_BACK = tests_resources_back
 
 all:
 	echo "Nothing yet"
