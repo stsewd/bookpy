@@ -64,8 +64,11 @@ books/
 
 # Installation
 `git clone https://github.com/stsewd/bookpy`
+
 `cd bookpy`
+
 `pip install -r requirements.txt`
+
 `pip install .`
 
 # Coming Soon
