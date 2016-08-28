@@ -21,7 +21,7 @@ def _get_handler(file_type):
         handler = HANDLERS[file_type]
         return handler
     except KeyError:
-        raise BookpyError("File type not supported: {}".format(file_type))
+        raise BookpyError("File type not supported: {}.".format(file_type))
 
 
 def _get_new_path(old_file_path, new_file_name):
@@ -73,8 +73,10 @@ def rename_files(files_list, template=None, **kwargs):
     """
     for file_path in files_list:
         try:
+            if not os.path.exists(file_path):
+                raise BookpyError("File not found.")
             file_path = os.path.abspath(file_path)
             isbn = get_isbn_from_file(file_path)
             rename_file(file_path, isbn, template, **kwargs)
         except Exception as e:
-            print("{}. File: {}".format(str(e), file_path))
+            print("{} File: {}".format(str(e), file_path))
