@@ -1,4 +1,6 @@
 # bookpy
+[![PyPI version](https://badge.fury.io/py/bookpy.svg)](https://badge.fury.io/py/bookpy)
+
 Renames your e-books for better organization.
 
 # Supported Files
